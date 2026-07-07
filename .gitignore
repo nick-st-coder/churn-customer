@@ -1,0 +1,8 @@
+#Environment
+.venv
+
+#Product
+artifacts
+
+#MlFlow
+mlruns
