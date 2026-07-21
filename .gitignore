@@ -10,3 +10,6 @@ mlruns
 #Data
 data/raw
 data/processed
+
+#MLFlow
+mlflow.db
