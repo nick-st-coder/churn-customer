@@ -23,6 +23,9 @@ def train_model(df: pd.DataFrame, target_col: str):
         eval_metric="roc_auc"
     )
 
+    mlflow.set_tracking_uri("http://127.0.0.1:5000")
+    mlflow.set_experiment("LGBM-model_training")
+
     with mlflow.start_run():
         model.fit(X_train, y_train)
         preds = model.predict(X_test)
