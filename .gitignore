@@ -4,9 +4,6 @@
 #Product
 artifacts
 
-#MlFlow
-mlruns
-
 #Data
 data/raw
 data/processed
