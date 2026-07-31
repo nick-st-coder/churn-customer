@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 import gradio as gr
 from pydentic import BaseModel
+from ...src.serving.inference import predict
 
 app = FastAPI(
     title='Churn Customer Prediction'
@@ -34,7 +35,10 @@ class Customer(BaseModel):
     MonthlyCharges: float      
     TotalCharges: float 
 
-# @app.post("/predict")
-# def get_prediction(data: Customer):
-#     try:
-#         result = predict(data.dict())    
+@app.post("/predict")
+def get_prediction(data: Customer):
+    try:
+        result = predict(data.dict())
+        return {"prediction": result}    
+    except Exception as e:
+        return {"error": str(e)}
