@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import mlflow
+import mlflow.lightgbm
 import pandas as pd
  
 from src.data.preprocess import preprocess_data
@@ -12,16 +13,19 @@ FEATURE_COLUMNS = [
     for line in (BASE_DIR / "feature_columns.txt").read_text(encoding="utf-8").splitlines()
     if line.strip()
 ]
-MODEL_DIR = BASE_DIR / "mlartifacts/2/models/m-080ba0968aad43a9a36458921d28661e/artifacts"
+
 THRESHOLD = 0.25
 
 mlflow.set_tracking_uri("http://127.0.0.1:5000/")
 
+import traceback
+
 try:
-    model = mlflow.lightgbm.load_model(str(MODEL_DIR))
-except Exception as exc:
-    model = None
-    print(f"Failed to load the model from {MODEL_DIR}: {exc}")
+    model = mlflow.lightgbm.load_model("models:/churn-lgbm/1")
+    print("Model loaded successfully")
+except Exception as e:
+    print("Failed to load the model")
+    traceback.print_exc()
 
 
 def _prepare_features(payload: dict) -> pd.DataFrame:
@@ -29,8 +33,7 @@ def _prepare_features(payload: dict) -> pd.DataFrame:
     raw_frame = preprocess_data(raw_frame)
     raw_frame = feature_builder(raw_frame)
     raw_frame = raw_frame.reindex(columns=FEATURE_COLUMNS, fill_value=0)
-    return raw_frame
-
+    return raw_frame.astype(float)
 
 def predict(payload: dict) -> dict:
     if model is None:
