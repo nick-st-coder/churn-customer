@@ -13,3 +13,4 @@ mlflow.db
 
 #Python
 __pycache__/
+app/__pycache__
