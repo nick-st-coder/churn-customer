@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import traceback
 import mlflow
 import mlflow.lightgbm
 import pandas as pd
@@ -8,6 +9,7 @@ from src.data.preprocess import preprocess_data
 from src.features.feature_builder import feature_builder
 
 BASE_DIR = Path(__file__).resolve().parents[2]
+MODEL_DIR = Path(__file__).resolve().parents[2] / "final-model"
 FEATURE_COLUMNS = [
     line.strip()
     for line in (BASE_DIR / "feature_columns.txt").read_text(encoding="utf-8").splitlines()
@@ -16,12 +18,8 @@ FEATURE_COLUMNS = [
 
 THRESHOLD = 0.25
 
-mlflow.set_tracking_uri("http://127.0.0.1:5000/")
-
-import traceback
-
 try:
-    model = mlflow.lightgbm.load_model("models:/churn-lgbm/1")
+    model = mlflow.lightgbm.load_model(str(MODEL_DIR))    
     print("Model loaded successfully")
 except Exception as e:
     print("Failed to load the model")
