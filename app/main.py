@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 import gradio as gr
 from pydantic import BaseModel
-from app.model.model import predict
+from app.prediction.predict import predict
 
 app = FastAPI(title="Churn Customer Prediction")
 

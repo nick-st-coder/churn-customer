@@ -9,7 +9,7 @@ from src.data.preprocess import preprocess_data
 from src.features.feature_builder import feature_builder
 
 BASE_DIR = Path(__file__).resolve().parents[2]
-MODEL_DIR = Path(__file__).resolve().parents[2] / "final-model"
+MODEL_DIR = Path(__file__).resolve().parents[2] / "model"
 FEATURE_COLUMNS = [
     line.strip()
     for line in (BASE_DIR / "feature_columns.txt").read_text(encoding="utf-8").splitlines()

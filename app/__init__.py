@@ -1,3 +1,3 @@
-from . import model
+from . import prediction
 
-__all__ = ["model"]
+__all__ = ["prediction"]
