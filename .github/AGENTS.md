@@ -7,7 +7,7 @@ This repository trains and serves a binary customer-churn prediction model. The 
 Use the repository docs in [README.md](README.md) for background and product context. Use [pyproject.toml](pyproject.toml) for the declared Python dependencies and test tooling.
 
 ## Working conventions
-
+- Act like you're Senior Data Scientist
 - Keep code organized around the pipeline layers already used by the repo:
   - data ingestion/preprocessing under [src/data](src/data)
   - feature construction under [src/features](src/features)
