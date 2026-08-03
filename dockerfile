@@ -16,6 +16,11 @@ FROM python:3.12-slim-bookworm
 
 WORKDIR /app
 
+# Install runtime system libraries required by native ML packages
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends libgomp1 \
+    && rm -rf /var/lib/apt/lists/*
+
 # Copy the pre-built virtual environment from builder stage
 COPY --from=builder /app/.venv /app/.venv
 ENV PATH="/app/.venv/bin:$PATH"
