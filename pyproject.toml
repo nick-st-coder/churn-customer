@@ -3,39 +3,47 @@ name = "churn-customer"
 version = "0.1.0"
 description = "Dependecies for project: churn"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12,<3.13"
 dependencies = [
-    "auto-mix-prep>=0.2.0",
+    # Core application
     "fastapi[standard]>=0.136.1",
-    "httpx>=0.28.1",
-    "lightgbm>=4.6.0",
-    "matplotlib>=3.10.9",
+    "uvicorn>=0.47.0",
+    "gradio>=6.21.0",
+
+    # ML inference
     "mlflow>=3",
     "numpy>=2.4.6",
-    "optuna>=4.8.0",
     "pandas>=2.3.0,<3",
-    "pandas-stubs>=2.2.0.20241218",
-    "pydantic>=2.13.4",
     "scikit-learn>=1.8.0",
-    "seaborn>=0.13.2",
-    "uvicorn>=0.47.0",
-    "xgboost>=3.2.0",
-    "shap>=0.47.0",
-    "numba>=0.59.0",
-    "boto3>=1.34.0",
-    "botocore>=1.34.0",
-    "pydentic>=0.0.1.dev3",
+    "xgboost>=3.3.0",
+    "lightgbm>=4.6.0",
+
+    # Utilities
+    "pydantic>=2.13.4",
     "python-dotenv>=1.2.2",
     "joblib>=1.5.3",
-    "great-expectations>=1.18.2",
-    "pytest>=9.1.1",
-    "statsmodels>=0.14.6",
-    "gradio>=6.21.0",
-    "docker>=7.1.0",
 ]
 
-# Heavy interactive notebooks are moved to development only
 [dependency-groups]
+training = [
+    "auto-mix-prep>=0.2.0",
+    "optuna>=4.8.0",
+    "shap>=0.47.0",
+    "numba>=0.59.0",
+    "great-expectations>=1.18.2",
+    "statsmodels>=0.14.6",
+    "matplotlib>=3.10.9",
+    "seaborn>=0.13.2",
+]
+
+aws = [
+    "boto3>=1.34.0",
+    "botocore>=1.34.0",
+]
+
 dev = [
-    "jupyter>=1.1.1"
+    "pytest>=9.1.1",
+    "httpx>=0.28.1",
+    "pandas-stubs>=2.2.0.20241218",
+    "docker>=7.1.0",
 ]
