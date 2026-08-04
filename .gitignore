@@ -17,3 +17,6 @@ app/__pycache__
 
 #Github
 prompts/
+
+#Docker
+docker/churn-app.tar
