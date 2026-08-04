@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import traceback
+import lightgbm
 import mlflow
 import mlflow.lightgbm
 import pandas as pd
@@ -17,13 +18,30 @@ FEATURE_COLUMNS = [
 ]
 
 THRESHOLD = 0.25
+EXPECTED_MLFLOW_VERSION = "3.14.0"
+EXPECTED_LIGHTGBM_VERSION = "4.6.0"
+
+
+def _validate_runtime() -> None:
+    mlflow_version = getattr(mlflow, "__version__", "unknown")
+    lightgbm_version = getattr(lightgbm, "__version__", "unknown")
+
+    if mlflow_version != EXPECTED_MLFLOW_VERSION or lightgbm_version != EXPECTED_LIGHTGBM_VERSION:
+        raise RuntimeError(
+            "Model artifact was saved with mlflow==3.14.0 and lightgbm==4.6.0. "
+            f"The current environment is mlflow=={mlflow_version} and lightgbm=={lightgbm_version}. "
+            "Recreate the virtual environment from the pinned dependency set in pyproject.toml or model/requirements.txt."
+        )
+
 
 try:
-    model = mlflow.lightgbm.load_model(str(MODEL_DIR))    
+    _validate_runtime()
+    model = mlflow.lightgbm.load_model(str(MODEL_DIR))
     print("Model loaded successfully")
-except Exception as e:
+except Exception:
     print("Failed to load the model")
     traceback.print_exc()
+    model = None
 
 
 def _prepare_features(payload: dict) -> pd.DataFrame:
@@ -38,7 +56,16 @@ def predict(payload: dict) -> dict:
         raise RuntimeError("Model is not available for inference.")
 
     feature_frame = _prepare_features(payload)
-    probability = float(model.predict_proba(feature_frame)[0, 1])
+
+    try:
+        probability = float(model.predict_proba(feature_frame)[0, 1])
+    except OSError as exc:
+        raise RuntimeError(
+            "LightGBM prediction crashed while scoring the model. This usually means the runtime ABI is incompatible "
+            "with the serialized model artifact. Reinstall the project in the pinned environment from pyproject.toml "
+            "or model/requirements.txt."
+        ) from exc
+
     prediction = int(probability >= THRESHOLD)
 
     return {
