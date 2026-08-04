@@ -2,7 +2,7 @@
 .venv
 
 #Product
-artifacts
+mlartifacts
 
 #Data
 data/raw
