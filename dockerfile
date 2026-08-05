@@ -5,15 +5,17 @@ ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
 
 WORKDIR /app
 
-# Install dependencies using cache mounts for near-instant builds
+# Copy only dependency metadata for the reproducible runtime install
+COPY pyproject.toml uv.lock ./
+
+# Install the runtime dependency set only, keeping the build context small
 RUN --mount=type=cache,target=/root/.cache/uv \
-    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    --mount=type=bind,source=uv.lock,target=uv.lock \
     uv sync --frozen --no-install-project --no-dev
 
 # --- Production Stage ---
 FROM python:3.12-slim-bookworm
 
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 WORKDIR /app
 
 # Install runtime system libraries required by native ML packages
@@ -25,8 +27,12 @@ RUN apt-get update \
 COPY --from=builder /app/.venv /app/.venv
 ENV PATH="/app/.venv/bin:$PATH"
 
-# Copy your actual project code
-COPY . .
+# Copy only the production assets needed to serve inference
+COPY app ./app
+COPY src ./src
+COPY config ./config
+COPY model ./model
+COPY feature_columns.txt ./feature_columns.txt
 
 # Expose port for FastAPI
 EXPOSE 8000
