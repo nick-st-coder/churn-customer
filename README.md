@@ -33,10 +33,14 @@ Still model misses 16% of churns and company has to offer discounts for 240k fak
 - also with correlation analysis i found out that the most common reason of customer leaving is too high prices and in our cases discounts can help customer to stay
 ---
 #### The problems that i faced while doing this project:
-- I was using default threshold (0.5) intead of custom one (0.25) which in result lead to wrong metrics results
+- Program started to use default threshold (0.5) intead of custom one (0.25) which in result lead to wrong metrics results
 
-Because of this most of my predictions has failed and i got both F1 scores 0.000, but it was quickly fixed by switching back to custom 0.25 threshold
+Because of this most of my predictions has failed and i got F1 scores for both train and test at 0.000, but it was quickly fixed by switching back to custom threshold
 
-- Firstly, when i was testing optuna I didn't register models, but when i decided to move to early stopping version of params tuning i connected project to MLFlow
+- First try Dockers image size was 4GB, which for not a deep learning project is to high.
 
-This issue took additional 20 minutes of my time
+Fixed by command Docker to copy only neccesary folders and deleting some unnecessary packages (like nvidia). Now the newest docker image is only 2.5GB
+
+- Deployed model was failing to predict new data
+
+The issue was loading model with pyfunc, which has now predict_proba function. Had to switch to mlflow.LightGBM loading of model instead.
