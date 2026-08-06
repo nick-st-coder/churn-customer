@@ -1,14 +1,14 @@
 # churn-customer
-This project's goal is to predict whether customer will discontinue his subscription with company or not.
+This project's goal is to predict whether customer will discontinue his subscription with company or not. Which will decrease company cost.
 
 ### Summary (based on analysis and modeling):
 
 #### Trade-offs
 
 The most obvious one is precision-recall trade-off, which in our case recall is higher than precision 
-- that means model will mark loyal customers as churns pretty often -> company'll spend additional money on "bringing back" customer, but thanks to it model also will capture `84%` of all churn customers
+- that means model will mark loyal customers as churns pretty often -> company'll spend additional money on "bringing back" customer, but thanks to it model also will capture `91%` of all churn customers.
 ---
-#### Bisiness problem solving
+#### Bisiness problem i solved
 
 Model can help telco company to determine whether customer will leave or not -> this will decreases costs of ads, campaings, etc.
 
