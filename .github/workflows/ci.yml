@@ -80,4 +80,4 @@ jobs:
         run: uv sync --frozen --dev
 
       - name: Validate model
-        run: uv run pytest tests/test_model.py
+        run: uv run pytest tests/test_fastapi.py
