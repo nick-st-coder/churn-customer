@@ -1,3 +1,7 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
 [project]
 name = "churn-customer"
 version = "0.1.0"
