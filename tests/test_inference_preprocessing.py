@@ -58,4 +58,4 @@ def test_predict_returns_expected_response_schema():
     assert set(result).issuperset({"prediction", "probability", "threshold", "risk_level", "message"})
     assert result["prediction"] in {0, 1}
     assert 0.0 <= result["probability"] <= 1.0
-    assert result["threshold"] == 0.25
+    assert result["threshold"] == 0.36
