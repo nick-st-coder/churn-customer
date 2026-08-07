@@ -2,6 +2,9 @@
 testpaths = ["tests"]
 pythonpath = ["."]
 
+[tool.ruff.lint]
+ignore = ["RUF059", "BLE001"]
+
 [project]
 name = "churn-customer"
 version = "0.1.0"
