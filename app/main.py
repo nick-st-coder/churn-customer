@@ -36,7 +36,7 @@ def root():
 def get_prediction(data: Customer):
     try:
         result = predict(data.model_dump())
-        return {"prediction": result}
+        return result
     except Exception as exc:
         return {"error": str(exc)}
 
