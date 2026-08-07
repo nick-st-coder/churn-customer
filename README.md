@@ -33,7 +33,7 @@ Let's imagine a scenario in which the company has 1 million customers. Using thi
 
 Although the model still misses approximately 9% of churning customers and the company spends money on retention offers for around 282,000 customers who would not have churned, the estimated benefit remains substantially higher than the campaign cost.
 
-With exploratory data analysis i found out that the most common reason of customer leaving are high prices and in our cases discounts can help customer to change their minds.
+- With exploratory data analysis i found out that the most common reason of customer leaving are high prices and in our cases discounts can help customer to change their minds.
 ---
 #### The problems that i faced while doing this project:
 - Program started to use default threshold (0.5) intead of custom one (0.25) which in result lead to wrong metrics scores.
