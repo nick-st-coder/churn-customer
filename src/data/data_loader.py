@@ -1,5 +1,7 @@
 import os
+
 import pandas as pd
+
 
 def load_data(file_path: str) -> pd.DataFrame:
     if not os.path.exists(file_path):

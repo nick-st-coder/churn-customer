@@ -1,7 +1,8 @@
-import great_expectations as gx
-from typing import List, Tuple
 
-def data_validation(df) -> Tuple[bool, List[str]]:
+import great_expectations as gx
+
+
+def data_validation(df) -> tuple[bool, list[str]]:
     ge_df = gx.dataset.PandasDataset(df)
     
     ge_df.expect_column_to_exist("customerID")

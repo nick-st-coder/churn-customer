@@ -1,4 +1,5 @@
-from app.prediction.predict import _prepare_features, FEATURE_COLUMNS, predict
+from app.prediction.predict import FEATURE_COLUMNS, _prepare_features, predict
+
 
 def test_prepare_features_returns_numeric_schema_matching_model():
     sample = {

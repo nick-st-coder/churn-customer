@@ -1,7 +1,8 @@
 import optuna
 from lightgbm import LGBMClassifier, early_stopping
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score
+from sklearn.model_selection import train_test_split
+
 
 def tune_model(X, y):
     X_train, X_test, y_train, y_test = train_test_split(

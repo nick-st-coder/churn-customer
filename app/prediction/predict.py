@@ -1,11 +1,11 @@
+import traceback
 from pathlib import Path
 
-import traceback
 import lightgbm
 import mlflow
 import mlflow.lightgbm
 import pandas as pd
- 
+
 from src.data.preprocess import preprocess_data
 from src.features.feature_builder import feature_builder
 
